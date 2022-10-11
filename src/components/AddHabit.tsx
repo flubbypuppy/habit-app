@@ -1,6 +1,12 @@
+import { OpenDirOptions } from "fs";
+import { ChangeEvent } from "react";
 
+type addHabitProps = {
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void,
+  handleSubmit: () => void
+}
 
-export default function AddHabit(handleChange: Function, handleSubmit: Function) {
+export const AddHabit = ({handleChange, handleSubmit}: addHabitProps) => {
   return (
     <form>
         <input type="text" id="New Habit" onChange={() => handleChange}/>

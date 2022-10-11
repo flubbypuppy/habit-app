@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import AddHabit from "./AddHabit"
+import { AddHabit } from "./AddHabit";
 
 export default function HabitList() {
 
@@ -12,10 +12,14 @@ export default function HabitList() {
   }
 
 
+  const addHabitProps = {
+    handleChange: handleChange,
+    handleSubmit: handleSubmit
+  }
+
   return (
     <div>
-      "Hello"
-      <AddHabit />
+      <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} />
     </div>
   )
 }

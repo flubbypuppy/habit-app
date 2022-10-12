@@ -3,8 +3,6 @@ import ControlPanel from "./components/ControlPanel";
 
 function App() {
 
-  const [habits, setHabits] = useState([])
-
   return (
     <div className="App">
       <ControlPanel />

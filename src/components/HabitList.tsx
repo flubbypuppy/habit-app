@@ -1,14 +1,19 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState, MouseEvent } from "react";
 import { AddHabit } from "./AddHabit";
 
 export default function HabitList() {
+  const [habit, setHabit] = useState('')
+  const [habitList, setHabitList] = useState([] as string[])
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    return;
+    setHabit(event.target.value)
   }
 
-  const handleSubmit = () => {
-    return;
+  const handleSubmit = (event: MouseEvent) => {
+    event.preventDefault()
+
+    setHabitList(habitList.concat([habit]))
+    setHabit('')
   }
 
 
@@ -19,7 +24,16 @@ export default function HabitList() {
 
   return (
     <div>
-      <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} />
+      <ul>
+        {habitList.map((elt, idx) => {
+          return (
+            <li key={idx}>
+              {elt}
+            </li>
+          )
+        })}
+      </ul>
+      <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} text={habit}/>
     </div>
   )
 }

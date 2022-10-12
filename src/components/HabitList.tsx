@@ -22,6 +22,8 @@ export default function HabitList() {
     handleSubmit: handleSubmit
   }
 
+  let disabled = habit == ''
+
   return (
     <div>
       <ul>
@@ -33,7 +35,7 @@ export default function HabitList() {
           )
         })}
       </ul>
-      <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} text={habit}/>
+      <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} text={habit} disabled={disabled}/>
     </div>
   )
 }

@@ -11,17 +11,23 @@ type habitProps = {
 export default function Habit({name, initColor} : habitProps) {
   const [pickColor, setPickColor] = useState('')
   const [color, setColor] = useState({color: initColor})
-
+  const [seeColor, setSeeColor] = useState(false)
 
   return (
     <span>
       <p style={color}>
         {name}
       </p>
-      <TwitterPicker
-        color={color.color}
-        onChangeComplete={ (color) => (setColor({color: color.hex})) }
-      />
+      <input type="button" style={color} onClick={() => setSeeColor(!seeColor)}/>
+      <span>
+        
+      </span>
+      {
+        seeColor && <TwitterPicker
+          color={color.color}
+          onChangeComplete={ (color) => (setColor({color: color.hex}))} 
+        />
+      }
     </span>
   )
 }

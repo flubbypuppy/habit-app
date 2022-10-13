@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { TwitterPicker } from "react-color"
+import { ColorResult, TwitterPicker } from "react-color"
 
 
 type habitProps = {
@@ -13,6 +13,11 @@ export default function Habit({name, initColor} : habitProps) {
   const [color, setColor] = useState(initColor)
   const [seeColor, setSeeColor] = useState(false)
 
+  const handleSubmit = (result: ColorResult) => {
+    setColor(result.hex)
+    setSeeColor(false)
+  }
+
   return (
     <div>
       <p style={{color: color}}>
@@ -22,7 +27,7 @@ export default function Habit({name, initColor} : habitProps) {
       {
         seeColor && <TwitterPicker
           color={color}
-          onChangeComplete={ (result) => (setColor(result.hex))} 
+          onChangeComplete={ (result) => (handleSubmit(result))} 
         />
       }
     </div>

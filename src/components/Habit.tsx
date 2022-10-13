@@ -18,7 +18,7 @@ export default function Habit({name, initColor} : habitProps) {
       <p style={color}>
         {name}
       </p>
-      <input type="button" style={color} onClick={() => setSeeColor(!seeColor)}/>
+      <input type="button" style={{backgroundColor: color.color}} onClick={() => setSeeColor(!seeColor)}/>
       <span>
         
       </span>

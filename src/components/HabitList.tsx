@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, MouseEvent } from "react";
+import React, { ChangeEvent, useState, FormEvent } from "react";
 import { AddHabit } from "./AddHabit";
 import Habit from "./Habit";
 
@@ -10,7 +10,7 @@ export default function HabitList() {
     setHabit(event.target.value)
   }
 
-  const handleSubmit = (event: MouseEvent) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
 
     setHabitList(habitList.concat([habit]))

@@ -1,5 +1,5 @@
 import { OpenDirOptions } from "fs";
-import { ChangeEvent, MouseEvent } from "react";
+import React, { ChangeEvent, MouseEvent } from "react";
 
 type addHabitProps = {
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void,

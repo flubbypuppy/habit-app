@@ -1,5 +1,6 @@
-import { ChangeEvent, useState, MouseEvent } from "react";
+import React, { ChangeEvent, useState, MouseEvent } from "react";
 import { AddHabit } from "./AddHabit";
+import Habit from "./Habit";
 
 export default function HabitList() {
   const [habit, setHabit] = useState('')
@@ -34,6 +35,9 @@ export default function HabitList() {
             </li>
           )
         })}
+        <li>
+          <Habit name={'TestHabit'} initColor={'#0F0F0F'} />
+        </li>
       </ul>
       <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} text={habit} disabled={disabled}/>
     </div>

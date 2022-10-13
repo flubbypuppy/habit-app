@@ -14,20 +14,17 @@ export default function Habit({name, initColor} : habitProps) {
   const [seeColor, setSeeColor] = useState(false)
 
   return (
-    <span>
+    <div>
       <p style={{color: color}}>
         {name}
       </p>
       <input type="button" style={{backgroundColor: color}} onClick={() => setSeeColor(!seeColor)}/>
-      <span>
-        
-      </span>
       {
         seeColor && <TwitterPicker
           color={color}
           onChangeComplete={ (result) => (setColor(result.hex))} 
         />
       }
-    </span>
+    </div>
   )
 }

@@ -23,23 +23,18 @@ export default function HabitList() {
     handleSubmit: handleSubmit
   }
 
-  let disabled = habit == ''
-
   return (
     <div>
       <ul>
         {habitList.map((elt, idx) => {
           return (
             <li key={idx}>
-              {elt}
+              <Habit name={elt} initColor={'#808080'} />
             </li>
           )
         })}
-        <li>
-          <Habit name={'TestHabit'} initColor={'#0F0F0F'} />
-        </li>
       </ul>
-      <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} text={habit} disabled={disabled}/>
+      <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} text={habit} disabled={habit == ''}/>
     </div>
   )
 }

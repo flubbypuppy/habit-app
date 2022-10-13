@@ -25,7 +25,8 @@ export default function Habit({name, initColor} : habitProps) {
       </p>
       <input type="button" style={{backgroundColor: color}} onClick={() => setSeeColor(!seeColor)}/>
       {
-        seeColor && <TwitterPicker
+        seeColor &&
+        <TwitterPicker
           color={color}
           onChangeComplete={ (result) => (handleSubmit(result))} 
         />

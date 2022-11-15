@@ -9,7 +9,6 @@ type habitProps = {
 
 
 export default function Habit({name, initColor} : habitProps) {
-  const [pickColor, setPickColor] = useState('')
   const [color, setColor] = useState(initColor)
   const [seeColor, setSeeColor] = useState(false)
 
@@ -31,6 +30,8 @@ export default function Habit({name, initColor} : habitProps) {
           onChangeComplete={ (result) => (handleSubmit(result))} 
         />
       }
+      <input type="checkbox" id={name} name={name} value={name}/>
+      <label htmlFor={name}>Done</label>
     </div>
   )
 }

@@ -30,7 +30,7 @@ export default function Habit({name, initColor} : habitProps) {
           onChangeComplete={ (result) => (handleSubmit(result))} 
         />
       }
-      <input type="checkbox" id={name} name={name} value={name}/>
+      <input type="checkbox" id={name+"Check"} name={name} value={name}/>
       <label htmlFor={name}>Done</label>
     </div>
   )

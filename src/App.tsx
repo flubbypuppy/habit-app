@@ -16,7 +16,7 @@ if (
 
 function App() {
   const [history, setHistory] = useState(new Array(84).fill(0))
-  const {colors, completed} = useContext(HabitContext)
+  const {colors} = useContext(HabitContext)
 
   let pushHistory = (elt: number) => {
     let result = history.slice(1)

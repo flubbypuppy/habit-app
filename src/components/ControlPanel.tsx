@@ -7,7 +7,17 @@ type controlPanelProps = {
 }
 
 export default function ControlPanel( {pushHistory}: controlPanelProps ) {
-  const [day, setDay] = useState(0)
+  const [day, setDay] = useState(0);
+  const [completed, setCompleted] = useState([] as string[]);
+
+  const handleCheck = (name: string) => {
+    let checkbox = document.getElementById(name+"Check") as HTMLInputElement | null;
+    if (checkbox?.checked) {
+      completed.push(name)
+    } else {
+      completed.splice(completed.indexOf(name))
+    }
+  }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setDay(Number(event.target.value))

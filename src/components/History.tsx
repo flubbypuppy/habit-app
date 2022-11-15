@@ -1,14 +1,15 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import { readBuilderProgram } from 'typescript'
+import { HabitContext } from '../utils/HabitContext'
 
 
 type historyProps = {
-  history: number[],
-  colors: string[]
+  history: number[]
 }
 
-export default function History({history, colors}: historyProps) {
+export default function History({history}: historyProps) {
   const boxLength = 15
+  const {colors} = useContext(HabitContext)
 
   return (
     <div>

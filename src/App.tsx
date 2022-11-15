@@ -26,8 +26,10 @@ function App() {
 
   return (
     <div className="App">
-      <ControlPanel pushHistory={pushHistory} colors={colors}/>
-      <History history={history} colors={colors}/>
+      <HabitContext.Provider value={useContext(HabitContext)}>
+        <ControlPanel pushHistory={pushHistory}/>
+        <History history={history}/>
+      </HabitContext.Provider>
     </div>
   );
   /*

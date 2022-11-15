@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useContext} from 'react';
+import { HabitContext } from '../utils/HabitContext';
 
-type dayDisplayProps = {
-  colors: string[]
-}
-
-export default function DayDisplay({colors}: dayDisplayProps) {
+export default function DayDisplay() {
+  const {colors} = useContext(HabitContext)
 
   return (
     <div>

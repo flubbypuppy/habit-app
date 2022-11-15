@@ -3,11 +3,10 @@ import DayDisplay from "./DayDisplay"
 import React, { ChangeEvent, FormEvent, useState} from 'react'
 
 type controlPanelProps = {
-  pushHistory: (elt: number) => void,
-  colors: string[]
+  pushHistory: (elt: number) => void
 }
 
-export default function ControlPanel( {pushHistory, colors}: controlPanelProps ) {
+export default function ControlPanel( {pushHistory}: controlPanelProps ) {
   const [day, setDay] = useState(0)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +23,7 @@ export default function ControlPanel( {pushHistory, colors}: controlPanelProps )
   return (
     <div className="ControlPanel">
       <HabitList />
-      <DayDisplay colors={colors}/>
+      <DayDisplay />
       <form onSubmit={handleSubmit}>
         <input type="text" id="Day" onChange={handleChange} value={String(day)} title="f"/>
         <input type="button" id="Submit Day" value="Submit Day" onClick={handleSubmit}/>

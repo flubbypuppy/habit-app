@@ -1,13 +1,17 @@
 import React, { useContext} from 'react';
 import { HabitContext } from '../utils/HabitContext';
 
-export default function DayDisplay() {
+type dayDisplayProps = {
+  count: number
+}
+
+export default function DayDisplay( {count}: dayDisplayProps) {
   const {colors} = useContext(HabitContext)
 
   return (
     <div>
       <svg width="200" height="200">
-        <rect width="200" height="200" fill={colors[0]}/>
+        <rect width="200" height="200" fill={colors[count]}/>
       </svg>
     </div>
   )

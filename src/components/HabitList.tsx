@@ -3,7 +3,11 @@ import { json } from "stream/consumers";
 import { AddHabit } from "./AddHabit";
 import Habit from "./Habit";
 
-export default function HabitList() {
+type habitListProps = {
+  handleCheck: (name: string) => void
+}
+
+export default function HabitList( {handleCheck}: habitListProps) {
   const [habit, setHabit] = useState('')
   const [habitList, setHabitList] = useState([] as string[])
 
@@ -18,7 +22,6 @@ export default function HabitList() {
     setHabit('')
   }
 
-
   const addHabitProps = {
     handleChange: handleChange,
     handleSubmit: handleSubmit
@@ -30,7 +33,7 @@ export default function HabitList() {
         {habitList.map((elt, idx) => {
           return (
             <li key={idx}>
-              <Habit name={elt} initColor={'#808080'} />
+              <Habit name={elt} initColor={'#808080'} handleCheck={handleCheck} />
             </li>
           )
         })}

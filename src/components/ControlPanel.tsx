@@ -13,9 +13,9 @@ export default function ControlPanel( {pushHistory}: controlPanelProps ) {
   const handleCheck = (name: string) => {
     let checkbox = document.getElementById(name+"Check") as HTMLInputElement | null;
     if (checkbox?.checked) {
-      completed.push(name)
+      setCompleted(completed.concat(name))
     } else {
-      completed.splice(completed.indexOf(name))
+      setCompleted(completed.filter(elt => elt != name))
     }
   }
 
@@ -32,8 +32,8 @@ export default function ControlPanel( {pushHistory}: controlPanelProps ) {
 
   return (
     <div className="ControlPanel">
-      <HabitList />
-      <DayDisplay />
+      <HabitList handleCheck={handleCheck}/>
+      <DayDisplay count={completed.length}/>
       <form onSubmit={handleSubmit}>
         <input type="text" id="Day" onChange={handleChange} value={String(day)} title="f"/>
         <input type="button" id="Submit Day" value="Submit Day" onClick={handleSubmit}/>

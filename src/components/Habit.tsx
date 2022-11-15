@@ -4,11 +4,12 @@ import { ColorResult, TwitterPicker } from "react-color"
 
 type habitProps = {
   name: string,
-  initColor: string
+  initColor: string,
+  handleCheck: (name: string) => void
 }
 
 
-export default function Habit({name, initColor} : habitProps) {
+export default function Habit({name, initColor, handleCheck} : habitProps) {
   const [color, setColor] = useState(initColor)
   const [seeColor, setSeeColor] = useState(false)
 
@@ -30,7 +31,7 @@ export default function Habit({name, initColor} : habitProps) {
           onChangeComplete={ (result) => (handleSubmit(result))} 
         />
       }
-      <input type="checkbox" id={name+"Check"} name={name} value={name}/>
+      <input type="checkbox" id={name+"Check"} name={name} value={name} onClick={(event) => handleCheck(name)}/>
       <label htmlFor={name}>Done</label>
     </div>
   )

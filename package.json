@@ -41,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwind": "^4.0.0",
+    "vivid-studio": "^0.11.1"
   }
 }

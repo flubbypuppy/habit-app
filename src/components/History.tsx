@@ -12,17 +12,19 @@ export default function History({history}: historyProps) {
   const {colors} = useContext(HabitContext)
 
   return (
-    <div>
-      <svg width="1000" height="1000">
+    <div className="flex flex-col items-center">
+     <g transform="translate(25,0)">
+        <svg width="275" height="275">
         {
           history.map((elt, idx) => {
             if (elt > 4) {elt = 4}
             return (
-              <rect width={boxLength} height={boxLength} x={idx%12*25} y={Math.floor(idx/12)*25} fill={colors[elt]}/>
+              <rect width={boxLength} height={boxLength} x={idx%12*25+5} y={Math.floor(idx/12)*25} fill={colors[elt]}/>
             )
           })
         }
       </svg>
+     </g>
     </div>
   )
 }

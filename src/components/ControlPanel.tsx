@@ -7,7 +7,6 @@ type controlPanelProps = {
 }
 
 export default function ControlPanel( {pushHistory}: controlPanelProps ) {
-  const [day, setDay] = useState(0);
   const [completed, setCompleted] = useState([] as string[]);
 
   const handleCheck = (name: string) => {
@@ -19,25 +18,23 @@ export default function ControlPanel( {pushHistory}: controlPanelProps ) {
     }
   }
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setDay(Number(event.target.value))
-  }
-
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-
-    pushHistory(day)
-    setDay(0)
+    pushHistory(completed.length)
+    completed.map((elt) => {
+      let checkbox = document.getElementById(elt+"Check") as HTMLInputElement;
+      checkbox.checked = false;
+    })
+    setCompleted([])
   }
 
   return (
-    <div className="ControlPanel">
-      <HabitList handleCheck={handleCheck}/>
-      <DayDisplay count={completed.length}/>
-      <form onSubmit={handleSubmit}>
-        <input type="text" id="Day" onChange={handleChange} value={String(day)} title="f"/>
-        <input type="button" id="Submit Day" value="Submit Day" onClick={handleSubmit}/>
-      </form>
+    <div className="ControlPanel flex flex-col items-center">
+     <HabitList handleCheck={handleCheck}/>
+     <DayDisplay count={completed.length}/>
+     <div className="border-slate-700 border-4 rounded m-4">
+     <input className="px-1 text-sm text-purple-600 font-semibold rounded-full border-slate-50 border-0 m-1" type="button" id="Submit Day" value="Submit Day" onClick={handleSubmit}/>
+     </div>
     </div>
   )
 }

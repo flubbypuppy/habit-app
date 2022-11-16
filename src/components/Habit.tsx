@@ -19,20 +19,20 @@ export default function Habit({name, initColor, handleCheck} : habitProps) {
   }
 
   return (
-    <div>
-      <p style={{color: color}}>
-        {name}
-      </p>
-      <input type="button" style={{backgroundColor: color}} onClick={() => setSeeColor(!seeColor)}/>
-      {
-        seeColor &&
-        <TwitterPicker
-          color={color}
-          onChangeComplete={ (result) => (handleSubmit(result))} 
-        />
-      }
-      <input type="checkbox" id={name+"Check"} name={name} value={name} onClick={(event) => handleCheck(name)}/>
-      <label htmlFor={name}>Done</label>
+    <div className="flex justify-evenly">
+     <p style={{color: color}}>
+       {name}
+     </p>
+     <input className="w-16 rounded-md items-center self-baseline" type="button" style={{backgroundColor: color}} onClick={() => setSeeColor(!seeColor)}/>
+     {
+       seeColor &&
+       <TwitterPicker
+         color={color}
+         onChangeComplete={ (result) => (handleSubmit(result))} 
+       />
+     }
+     <input type="checkbox" id={name+"Check"} name={name} value={name} onClick={(event) => handleCheck(name)}/>
+     <label htmlFor={name}>Done</label>
     </div>
   )
 }

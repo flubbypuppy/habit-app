@@ -5,14 +5,6 @@ import History from "./components/History";
 import { Red } from "./components/Red";
 import { HabitContext } from "./utils/HabitContext";
 
-if (
-  typeof window !== "undefined" &&
-  process.env.NODE_ENV === "development"
-  // && /VIVID_ENABLED=true/.test(document.cookie)
-) {
-  import("vivid-studio").then((v) => v.run());
-  import("vivid-studio/style.css");
-}
 
 function App() {
   const [history, setHistory] = useState(new Array(84).fill(0))
@@ -25,11 +17,20 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <HabitContext.Provider value={useContext(HabitContext)}>
-        <ControlPanel pushHistory={pushHistory}/>
-        <History history={history}/>
-      </HabitContext.Provider>
+    <div className="App bg-slate-50 h-screen">
+     <div className="text-center p-2">
+       <h1 className="text-5xl font-sans font-bold m-1 text-slate-600">
+         Habit Tracker
+       </h1>
+       <text className="font-sans p-2 text-slate-600">
+         by Will
+       </text>
+       <div className="h-36">div</div>
+     </div>
+     <HabitContext.Provider value={useContext(HabitContext)}>
+       <ControlPanel pushHistory={pushHistory}/>
+       <History history={history}/>
+     </HabitContext.Provider>
     </div>
   );
   /*

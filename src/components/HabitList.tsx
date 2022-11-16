@@ -17,9 +17,10 @@ export default function HabitList( {handleCheck}: habitListProps) {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-
-    setHabitList(habitList.concat([habit]))
-    setHabit('')
+    if (habit.length != 0) {
+      setHabitList(habitList.concat([habit]))
+      setHabit('')
+    }
   }
 
   const addHabitProps = {
@@ -28,17 +29,17 @@ export default function HabitList( {handleCheck}: habitListProps) {
   }
 
   return (
-    <div>
-      <ul>
-        {habitList.map((elt, idx) => {
-          return (
-            <li key={idx}>
-              <Habit name={elt} initColor={'#808080'} handleCheck={handleCheck} />
-            </li>
-          )
-        })}
-      </ul>
-      <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} text={habit} disabled={habit == ''}/>
+    <div className="border-slate-700 border-4 rounded m-4">
+     <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} text={habit} disabled={habit == ''}/>
+     <ul>
+       {habitList.map((elt, idx) => {
+         return (
+           <li key={idx}>
+             <Habit name={elt} initColor={'#808080'} handleCheck={handleCheck} />
+           </li>
+         )
+       })}
+     </ul>
     </div>
   )
 }

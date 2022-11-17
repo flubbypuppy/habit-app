@@ -18,6 +18,5 @@ export const AddHabit = ({handleChange, handleSubmit, text, disabled}: addHabitP
         </div>
       </form>
     </div>
-
   )
 }

@@ -7,19 +7,52 @@ type habitListProps = {
   handleCheck: (name: string) => void
 }
 
+export interface VisibleHash {
+  [habits: string] : boolean;
+}
+
 export default function HabitList( {handleCheck}: habitListProps) {
   const [habit, setHabit] = useState('')
   const [habitList, setHabitList] = useState([] as string[])
+  const [visible, setVisible] = useState({} as VisibleHash)
+  const [currColor, setCurrColor] = useState('')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setHabit(event.target.value)
   }
 
+  /**
+   * Adding a new habit to the list
+   * @param event 
+   */
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-    if (habit.length != 0) {
+    if (habit.length != 0 && !habitList.includes(habit)) {
       setHabitList(habitList.concat([habit]))
+      let pair: VisibleHash = {}
+      pair[habit] = false
+      setVisible({...visible, ...pair})
       setHabit('')
+    }
+  }
+
+  const handleColor = (habit: string) => {
+    let temp = {...visible}
+    if (currColor == '') {
+      setCurrColor(habit)
+      temp[habit] = true
+      setVisible(temp)
+    }
+    else if (currColor == habit) {
+      setCurrColor('')
+      temp[habit] = false
+      setVisible(temp)
+    }
+    else {
+      temp[currColor] = false
+      setCurrColor(habit)
+      temp[habit] = true
+      setVisible(temp)
     }
   }
 
@@ -29,15 +62,16 @@ export default function HabitList( {handleCheck}: habitListProps) {
   }
 
   return (
-    <div className="border-slate-700 border-4 rounded m-4">
+    <div className="border-slate-700 border-4 rounded m-4 relative my-8">
      <AddHabit handleChange={handleChange} handleSubmit={handleSubmit} text={habit} disabled={habit == ''}/>
      <ul>
-       {habitList.map((elt, idx) => {
-         return (
-           <li key={idx}>
-             <Habit name={elt} initColor={'#808080'} handleCheck={handleCheck} />
-           </li>
-         )
+       {
+        habitList.map((elt, idx) => {
+          return (
+            <li key={idx}>
+              <Habit name={elt} initColor={'#808080'}  visible={visible} handleCheck={handleCheck} handleColor={handleColor}/>
+            </li>
+          )
        })}
      </ul>
     </div>

@@ -25,7 +25,6 @@ function App() {
        <text className="font-sans p-2 text-slate-600">
          by Will
        </text>
-       <div className="h-36">div</div>
      </div>
      <HabitContext.Provider value={useContext(HabitContext)}>
        <ControlPanel pushHistory={pushHistory}/>

@@ -32,12 +32,6 @@ function App() {
      </HabitContext.Provider>
     </div>
   );
-  /*
-  return (<>
-    <Red />
-    <Blue />
-  </>);
-  */
 }
 
 export default App;

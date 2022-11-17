@@ -14,7 +14,7 @@ export default function History({history}: historyProps) {
   return (
     <div className="flex flex-col items-center">
      <g transform="translate(25,0)">
-        <svg width="275" height="275">
+        <svg width="300" height="275">
         {
           history.map((elt, idx) => {
             if (elt > 4) {elt = 4}
@@ -23,7 +23,7 @@ export default function History({history}: historyProps) {
             )
           })
         }
-      </svg>
+        </svg>
      </g>
     </div>
   )

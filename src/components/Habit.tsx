@@ -6,7 +6,7 @@ type habitProps = {
   name: string,
   initColor: string,
   visible: VisibleHash,
-  handleCheck: (name: string) => void,
+  handleCheck: (name: string, color: string) => void,
   handleColor: (habit: string) => void
 }
 
@@ -37,7 +37,7 @@ export default function Habit({name, initColor, visible, handleCheck, handleColo
         
       }
       </button>
-      <input className="ml-2 mr-2" type="checkbox" id={name+"Check"} name={name} value={name} onClick={(event) => handleCheck(name)}/>
+      <input className="ml-2 mr-2" type="checkbox" id={name+"Check"} name={name} value={name} onClick={(event) => handleCheck(name, color)}/>
       <label className="mr-2" htmlFor={name}>Done</label>
      </div>
     </div>

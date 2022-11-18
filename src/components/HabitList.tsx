@@ -4,7 +4,7 @@ import { AddHabit } from "./AddHabit";
 import Habit from "./Habit";
 
 type habitListProps = {
-  handleCheck: (name: string) => void
+  handleCheck: (name: string, color: string) => void
 }
 
 export interface VisibleHash {

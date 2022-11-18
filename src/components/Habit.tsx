@@ -7,11 +7,12 @@ type habitProps = {
   initColor: string,
   visible: VisibleHash,
   handleCheck: (name: string, color: string) => void,
-  handleColor: (habit: string) => void
+  handleColor: (habit: string) => void,
+  handleDelete: (name: string, color: string) => void
 }
 
 
-export default function Habit({name, initColor, visible, handleCheck, handleColor} : habitProps) {
+export default function Habit({name, initColor, visible, handleCheck, handleColor, handleDelete} : habitProps) {
   const [color, setColor] = useState(initColor)
 
   const handleSubmit = (result: ColorResult) => {
@@ -25,7 +26,8 @@ export default function Habit({name, initColor, visible, handleCheck, handleColo
        {name}
      </p>
      <div className="flex justify-center">
-      <button className="w-8 relative rounded-md items-center self-baseline h-full" type="button" style={{backgroundColor: color}} onClick={() => handleColor(name)}>
+      <button className="w-4 rounded-md self-baseline items-center mr-2" onClick={() => handleDelete(name, color)}>X</button>
+      <button className="w-8 relative rounded-md items-center self-baseline h-full" style={{backgroundColor: color}} onClick={() => handleColor(name)}>
       {
         visible[name] &&
         <div className="absolute top-8 -left-1 z-10">

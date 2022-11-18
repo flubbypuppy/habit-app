@@ -4,19 +4,24 @@ import { AddHabit } from "./AddHabit";
 import Habit from "./Habit";
 
 type habitListProps = {
-  handleCheck: (name: string, color: string) => void
+  handleCheck: (name: string, color: string) => void,
+  handleDelete: (name: string, color: string) => void
 }
 
 export interface VisibleHash {
   [habits: string] : boolean;
 }
 
-export default function HabitList( {handleCheck}: habitListProps) {
+export default function HabitList( {handleCheck, handleDelete}: habitListProps) {
   const [habit, setHabit] = useState('')
   const [habitList, setHabitList] = useState([] as string[])
   const [visible, setVisible] = useState({} as VisibleHash)
   const [currColor, setCurrColor] = useState('')
 
+  /**
+   * Changes the state as habit gets typed
+   * @param event
+   */
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setHabit(event.target.value)
   }
@@ -34,6 +39,16 @@ export default function HabitList( {handleCheck}: habitListProps) {
       setVisible({...visible, ...pair})
       setHabit('')
     }
+  }
+
+  const deleteHabit = (name: string, color: string) => {
+    let temp = {...visible}
+    delete temp[name]
+    
+    handleDelete(name, color)
+    setHabitList(habitList.filter((elt) => elt != name))
+    setCurrColor('')
+    setVisible(temp)
   }
 
   const handleColor = (habit: string) => {
@@ -69,7 +84,7 @@ export default function HabitList( {handleCheck}: habitListProps) {
         habitList.map((elt, idx) => {
           return (
             <li key={idx}>
-              <Habit name={elt} initColor={'#808080'}  visible={visible} handleCheck={handleCheck} handleColor={handleColor}/>
+              <Habit name={elt} initColor={'#808080'}  visible={visible} handleCheck={handleCheck} handleColor={handleColor} handleDelete={deleteHabit}/>
             </li>
           )
        })}

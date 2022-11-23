@@ -1,53 +1,71 @@
-import HabitList from "./HabitList"
-import DayDisplay from "./DayDisplay"
-import React, { ChangeEvent, FormEvent, useState} from 'react'
+import { Habit } from "../App";
+import Habits from "./Habits";
 
-type controlPanelProps = {
-  pushHistory: (elt: string[]) => void
-}
+type ControlPanelProps = {
+  habitList: Habit[];
+  addHabit: (habitName: string) => void;
+  delHabit: (habitName: string) => void;
+  setColor: (habitName: string, habitColor: string) => void;
+  setVisible: (habitName: string, value: boolean) => void;
+  toggleDone: (habitName: string) => void;
+  pushHistory: () => void;
+};
 
-export default function ControlPanel( {pushHistory}: controlPanelProps ) {
-  const [completed, setCompleted] = useState([] as string[]);
-  const [completedNames, setCompletedNames] = useState([] as string[]);
-
-  const handleCheck = (name: string, color: string) => {
-    let checkbox = document.getElementById(name+"Check") as HTMLInputElement | null;
-    if (checkbox?.checked) {
-      setCompleted(completed.concat(color))
-      setCompletedNames(completedNames.concat(name))
-    } else {
-      setCompleted(completed.filter(elt => elt != color))
-      setCompletedNames(completedNames.filter(elt => elt != name))
-    }
-  }
-
-  const handleDelete = (name: string, color: string) => {
-    setCompleted(completed.filter((elt) => elt != color))
-    setCompletedNames(completedNames.filter((elt) => elt != name))
-  }
-
-  /**
-   * Adds the current day to history for display
-   * @param event 
-   */
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault()
-    pushHistory(completed)
-    completedNames.map((elt) => {
-      let checkbox = document.getElementById(elt+"Check") as HTMLInputElement;
-      checkbox.checked = false;
-    })
-    setCompleted([])
-  }
+/**
+ * It renders a list of habits, a bar chart of the habits that have been completed, and a button to add
+ * a new habit
+ * @param {controlPanelProps}  - habitList - the list of habits
+ * @returns A div with a Habits component and a svg
+ */
+export default function ControlPanel({
+  habitList,
+  addHabit,
+  delHabit,
+  setColor,
+  setVisible,
+  toggleDone,
+  pushHistory,
+}: ControlPanelProps) {
+  let done = habitList.filter((elt) => elt.done);
 
   return (
-    <div className="ControlPanel flex flex-col items-center">
-     <HabitList handleCheck={handleCheck} handleDelete={handleDelete}/>
-     <DayDisplay colors={completed}/>
-     <div className="border-slate-700 border-4 rounded m-4">
-     <input className="px-1 text-sm text-purple-600 font-semibold rounded-full border-slate-50 border-0 m-1" type="button" id="Submit Day" value="Submit Day" onClick={handleSubmit}/>
-     </div>
+    <div className="flex flex-col items-center">
+      <Habits
+        habitList={habitList}
+        addHabit={addHabit}
+        delHabit={delHabit}
+        setColor={setColor}
+        setVisible={setVisible}
+        toggleDone={toggleDone}
+      />
+      <div className="border-slate-700 border-4 rounded">
+        <svg width="200" height="200">
+          {done.length != 0 ? (
+            done.map((elt, idx) => {
+              let size = done.length;
+              return (
+                <rect
+                  width="200"
+                  height={200 / size}
+                  y={(idx * 200) / size}
+                  fill={elt.color}
+                />
+              );
+            })
+          ) : (
+            <rect width="200" height="200" fill="#808080" />
+          )}
+        </svg>
+      </div>
+      <div className="border-slate-700 border-4 rounded m-4">
+        <input
+          className="px-1 text-sm text-purple-600 font-semibold rounded-full border-slate-50 border-0 m-1"
+          type="button"
+          id="Submit Day"
+          value="Submit Day"
+          onClick={pushHistory}
+        />
+      </div>
     </div>
-  )
+  );
 }
-

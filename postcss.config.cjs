@@ -3,4 +3,6 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {},
   },
-}
+};
+
+// TODO: Name with JS extensions

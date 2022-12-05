@@ -26,6 +26,7 @@ export default function ControlPanel({
   toggleDone,
   pushHistory,
 }: ControlPanelProps) {
+  // TODO: More descriptive name
   let done = habitList.filter((elt) => elt.done);
 
   return (
@@ -38,7 +39,8 @@ export default function ControlPanel({
         setVisible={setVisible}
         toggleDone={toggleDone}
       />
-      <div className="border-slate-700 border-4 rounded">
+      <div className="border-4 rounded border-slate-700">
+        {/* TODO: Just use a div */}
         <svg width="200" height="200">
           {done.length != 0 ? (
             done.map((elt, idx) => {
@@ -57,9 +59,9 @@ export default function ControlPanel({
           )}
         </svg>
       </div>
-      <div className="border-slate-700 border-4 rounded m-4">
+      <div className="m-4 border-4 rounded border-slate-700">
         <input
-          className="px-1 text-sm text-purple-600 font-semibold rounded-full border-slate-50 border-0 m-1"
+          className="px-1 m-1 text-sm font-semibold text-purple-600 border-0 rounded-full border-slate-50"
           type="button"
           id="Submit Day"
           value="Submit Day"

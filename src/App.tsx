@@ -14,6 +14,7 @@ import {
   where,
 } from "firebase/firestore";
 
+// TODO: Consider moving types into their own file(s)
 export type Habit = {
   name: string;
   color: string;
@@ -27,16 +28,25 @@ export type HistoryHabit = {
 };
 
 function App() {
+  // TODO: useState is a generic function, so you can do useState<Habit[]>([]);
   const [habitList, setHabitList] = useState([] as Habit[]);
+  // TODO: Consider setting default to empty array, type with generic
   const [history, setHistory] = useState(
     new Array(84).fill([]) as HistoryHabit[][]
   );
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
+  // TODO: Create a custom hook to wrap around this server logic
+
+  // TODO: Look into react-query for keeping track of server state
+  // TODO: Learn about Zustand for global state
+
+  // TODO: It fetches --> Fetches
   /**
    * It fetches the habits and history of the user from the database and sets the state of the component
    */
+  // TODO: Don't type as any
   const readData = async (id: any) => {
     console.log("fetching data from: ");
     console.log(id);
@@ -50,7 +60,9 @@ function App() {
         setHistory(JSON.parse(data.history));
       }
     } catch (err) {
+      // TODO: Same error behavior as before
       console.error(err);
+      // TODO: Install spell checking VSCode extension
       alert("Error occured while fetching data");
     }
   };
@@ -82,9 +94,11 @@ function App() {
    * @param habitName The name of the habit being added
    */
   const addHabit = (habitName: string) => {
+    // TODO: If you reference state from setState, use an arrow function param
     setHabitList(
       habitList.concat({
         name: habitName,
+        // TODO: Move this into a constant
         color: "#808080",
         visible: false,
         done: false,
@@ -92,12 +106,14 @@ function App() {
     );
   };
 
+  // TODO: Shouldn't be past tense
   /**
    * Removed a habit from habitList
    * @param habitName The name of the habit being deleted
    */
   const delHabit = (habitName: string) => {
     setHabitList((habitList) =>
+    // TODO: Always use triple equals
       habitList.filter((elt) => elt.name != habitName)
     );
   };
@@ -110,6 +126,7 @@ function App() {
    * @param {string} habitColor - string - the color that the user has selected
    * @returns A new array with the updated color.
    */
+  // TODO: Give this a more descriptive name, or move it inline
   const colorHelper = (
     oldState: Habit[],
     habitName: string,
@@ -142,6 +159,7 @@ function App() {
    * @param {boolean} value - boolean - the value of the checkbox
    * @returns An array of objects.
    */
+  // TODO: Ditto helper
   const visibleHelper = (
     oldState: Habit[],
     habitName: string,
@@ -216,19 +234,23 @@ function App() {
     setHabitList([]);
   };
 
+  // TODO: All of this history stuff could be in a custom useHistory hook
+
+  // TODO: Move NavBar into component file
+  // TODO: Create Link component to encapsulate link style and behavior
   return (
     <>
       <nav className="bg-amber-100">
-        <ul className="flex justify-between px-5 py-3 items-center">
+        <ul className="flex items-center justify-between px-5 py-3">
           <li>
             <Link
-              className="font-bold text-purple-700 bg-slate-300 p-1 rounded"
+              className="p-1 font-bold text-purple-700 rounded bg-slate-300"
               to="/"
             >
               Home
             </Link>
           </li>
-          <li className="font-bold text-purple-700 bg-slate-300 p-1 rounded">
+          <li className="p-1 font-bold text-purple-700 rounded bg-slate-300">
             {!user ? (
               <Link to="/login">Login</Link>
             ) : (
@@ -243,13 +265,14 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="App bg-slate-50 h-screen">
-              <div className="text-center p-2">
-                <h1 className="text-5xl font-sans font-bold m-1 text-slate-600">
+            <div className="h-screen App bg-slate-50">
+              <div className="p-2 text-center">
+                <h1 className="m-1 font-sans text-5xl font-bold text-slate-600">
                   Habit Tracker
                 </h1>
-                <text className="font-sans p-2 text-slate-600">by Will</text>
+                <text className="p-2 font-sans text-slate-600">by Will</text>
               </div>
+              {/* TODO: To pass this many things, pass a single object */}
               <ControlPanel
                 habitList={habitList}
                 addHabit={addHabit}

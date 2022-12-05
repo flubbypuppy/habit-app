@@ -9,6 +9,7 @@ export default function History({ history }: HistoryProps) {
 
   return (
     <div className="flex flex-col items-center">
+      {/* TODO: Don't use SVG */}
       <svg width="300" height="275">
         {history.map((elt, idx) => {
           if (elt.length == 0) {
@@ -22,6 +23,7 @@ export default function History({ history }: HistoryProps) {
               />
             );
           }
+          // TODO: Look into why this from is necessary
           return Array.from(elt).map((elt2, idx2, list) => {
             return (
               <rect

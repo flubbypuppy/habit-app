@@ -5,4 +5,8 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};
+
+// TODO: Name with JS extensions
+
+// TODO: Consider customizing Tailwind theme (look at landing page template)

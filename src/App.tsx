@@ -1,6 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ControlPanel from "./components/ControlPanel";
 import History from "./components/History";
+import Login from "./components/Login";
+import { Link, useNavigate, Route, Routes } from "react-router-dom";
+import { auth, db, logout } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  query,
+  collection,
+  getDoc,
+  setDoc,
+  doc,
+  where,
+} from "firebase/firestore";
 
 export type Habit = {
   name: string;
@@ -19,6 +31,51 @@ function App() {
   const [history, setHistory] = useState(
     new Array(84).fill([]) as HistoryHabit[][]
   );
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  /**
+   * It fetches the habits and history of the user from the database and sets the state of the component
+   */
+  const readData = async (id: any) => {
+    console.log("fetching data from: ");
+    console.log(id);
+    try {
+      const docRef = doc(db, "users", id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log("Overwriting Local with: ", docSnap.data());
+        const data = docSnap.data();
+        setHabitList(data.habits);
+        setHistory(JSON.parse(data.history));
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error occured while fetching data");
+    }
+  };
+
+  /**
+   * It updates the user's data in the database
+   * @param {any} id - the id of the document you want to update
+   */
+  const writeData = async (id: any) => {
+    console.log("writing data to: ");
+    console.log(user?.uid);
+    const userDoc = doc(db, "users", id);
+    const newFields = { habits: habitList, history: JSON.stringify(history) };
+    console.log("Overwriting Server with: ", newFields);
+    await setDoc(userDoc, newFields);
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/login");
+  }, [user]);
+
+  useEffect(() => {
+    if (user) writeData(user?.uid);
+  }, [habitList, history]);
 
   /**
    * Adds a habit with name to habitList
@@ -160,24 +217,55 @@ function App() {
   };
 
   return (
-    <div className="App bg-slate-50 h-screen">
-      <div className="text-center p-2">
-        <h1 className="text-5xl font-sans font-bold m-1 text-slate-600">
-          Habit Tracker
-        </h1>
-        <text className="font-sans p-2 text-slate-600">by Will</text>
-      </div>
-      <ControlPanel
-        habitList={habitList}
-        addHabit={addHabit}
-        delHabit={delHabit}
-        setColor={setColor}
-        setVisible={setVisible}
-        toggleDone={toggleDone}
-        pushHistory={pushHistory}
-      />
-      <History history={history} />
-    </div>
+    <>
+      <nav className="bg-amber-100">
+        <ul className="flex justify-between px-5 py-3 items-center">
+          <li>
+            <Link
+              className="font-bold text-purple-700 bg-slate-300 p-1 rounded"
+              to="/"
+            >
+              Home
+            </Link>
+          </li>
+          <li className="font-bold text-purple-700 bg-slate-300 p-1 rounded">
+            {!user ? (
+              <Link to="/login">Login</Link>
+            ) : (
+              <button type="button" onClick={() => logout()}>
+                Logout
+              </button>
+            )}
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="App bg-slate-50 h-screen">
+              <div className="text-center p-2">
+                <h1 className="text-5xl font-sans font-bold m-1 text-slate-600">
+                  Habit Tracker
+                </h1>
+                <text className="font-sans p-2 text-slate-600">by Will</text>
+              </div>
+              <ControlPanel
+                habitList={habitList}
+                addHabit={addHabit}
+                delHabit={delHabit}
+                setColor={setColor}
+                setVisible={setVisible}
+                toggleDone={toggleDone}
+                pushHistory={pushHistory}
+              />
+              <History history={history} />
+            </div>
+          }
+        />
+        <Route path="/login" element={<Login readData={readData} />} />
+      </Routes>
+    </>
   );
 }
 

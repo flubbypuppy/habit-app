@@ -16,6 +16,7 @@ type HabitRowProps = {
  * @param {HabitProps}  - habitProps
  * @returns A div with a paragraph and a div with a button, a color picker, and a checkbox.
  */
+// TODO: Don't always need every part of a JSDoc
 export default function HabitRow({
   habit,
   delHabit,
@@ -27,20 +28,23 @@ export default function HabitRow({
     setVisible(habit.name, true);
   };
 
+  // TODO: To make it more readable, extract into locally declared components
+  // TODO: Get tailwind sorting VSCode extension
+  
   return (
-    <div className="flex justify-between my-2 relative">
+    <div className="relative flex justify-between my-2">
       <p className="ml-2" style={{ color: habit.color }}>
         {habit.name}
       </p>
       <div className="flex justify-center">
         <button
-          className="w-4 rounded-md self-baseline items-center mr-2"
+          className="items-center w-4 mr-2 rounded-md self-baseline"
           onClick={() => delHabit(habit.name)}
         >
           X
         </button>
         <button
-          className="w-8 relative rounded-md items-center self-baseline h-full"
+          className="relative items-center w-8 h-full rounded-md self-baseline"
           id={habit.name + "Color"}
           style={{ backgroundColor: habit.color }}
           onClick={openPicker}

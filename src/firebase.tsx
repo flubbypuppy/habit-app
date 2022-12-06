@@ -18,6 +18,8 @@ import {
   addDoc,
 } from "firebase/firestore";
 
+// TODO: Set up eslint to both sort imports and remove unused ones
+
 const apiKey = import.meta.env.VITE_PROJECT_API_KEY;
 
 // Your web app's Firebase configuration
@@ -93,6 +95,8 @@ const sendPasswordReset = async (email: string) => {
     alert(err.message);
   }
 };
+
+// TODO: If you're using the same error behavior for everything, don't repeat yourself
 
 // Logout
 const logout = () => {

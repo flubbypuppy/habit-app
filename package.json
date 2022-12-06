@@ -8,6 +8,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  // TODO: Move dev dependencies into dev dependencies
+  // Dependencies are needed to run the package, dev dependencies are needed only
+  // to develop (e.g., autoprefixer, tailwindcss, @types/react-color)
   "dependencies": {
     "@types/react-color": "^3.0.6",
     "autoprefixer": "^10.4.13",

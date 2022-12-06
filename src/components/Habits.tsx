@@ -25,6 +25,7 @@ export default function Habits({
     setHabit(event.target.value);
   };
 
+  // TODO: Consider moving into util folder or file
   /**
    * It checks if the habit name is unique.
    * @param {string} habitName - string - the name of the habit you want to check
@@ -57,11 +58,11 @@ export default function Habits({
   };
 
   return (
-    <div className="border-slate-700 border-4 rounded m-4 my-8">
+    <div className="m-4 my-8 border-4 rounded border-slate-700">
       <div className="flex">
         <form className="flex py-1" onSubmit={handleSubmit}>
           <input
-            className="bg-slate-400 rounded ml-2"
+            className="ml-2 rounded bg-slate-400"
             type="text"
             id="New Habit"
             onChange={handleChange}
@@ -70,7 +71,7 @@ export default function Habits({
           />
           <div className="rounded-full border-slate-50 border-1">
             <input
-              className="px-4 py-1 text-sm text-purple-600 font-semibold"
+              className="px-4 py-1 text-sm font-semibold text-purple-600"
               type="button"
               id="Submit Habit"
               value="Add Habit"

@@ -82,7 +82,7 @@ function App() {
    * @param habitName The name of the habit being added
    */
   const addHabit = (habitName: string) => {
-    setHabitList(
+    setHabitList((habitList) =>
       habitList.concat({
         name: habitName,
         color: "#808080",
